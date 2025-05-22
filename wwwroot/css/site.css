@@ -11,6 +11,29 @@ html {
     }
 }
 
+.card-lg {
+    width: 100%;
+    max-width: 400px; /* ou 400px, ajuste como preferir */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@media (max-width: 576px) {
+    .card-lg {
+        max-width: 98vw;
+    }
+}
+
+@media (max-width: 576px) {
+    .login-area,
+    .navbar-nav .login,
+    .navbar-nav .nav-item.login {
+        display: none !important;
+    }
+}
+
+
+
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
     box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
@@ -71,25 +94,46 @@ header {
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
 
-
 #divLancamentos, #divTop5, #divAvalicao {
-    max-height: 520px;
-    height: 520px;
+    min-height: 0;
+    height: auto;
+    max-height: none;
 }
 
+
+
     #divLancamentos .card, #divTop5 .card, #divAvalicao .card {
-        margin: 0 32px 0 32px;
-        width: 18rem;
+        width: 100%;
+        margin: 0;
         text-align: center;
-        box-shadow: rgba(0,0,0,.4) 10px 10px;
-        height: 400px;
-        max-height: 400px;
+        box-shadow: rgba(0,0,0,.12) 0 2px 8px;
+        height: 100%;
+        max-width: 100%;
     }
 
         #divLancamentos .card img, #divTop5 .card img, #divAvalicao .card img {
-            height: 200px;
-            width: 150px;
+            width: 100%;
+            max-width: 120px;
+            height: auto;
+            max-height: 120px;
+            object-fit: contain;
+            display: block;
+            margin: 0 auto;
         }
+
+@media (max-width: 576px) {
+    #divLancamentos .card, #divTop5 .card, #divAvalicao .card {
+        min-width: 90vw;
+        max-width: 98vw;
+        margin-bottom: 1rem;
+    }
+
+        #divLancamentos .card img, #divTop5 .card img, #divAvalicao .card img {
+            max-width: 90px;
+            max-height: 90px;
+        }
+}
+
 
 
 .text-shadow-white {

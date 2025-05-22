@@ -1,4 +1,17 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+﻿using Azure.Core;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.WebUtilities;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages;
+using System.ComponentModel.DataAnnotations;
+using System.Security.Policy;
+using System.Text.Encodings.Web;
+using System.Text;
+
+
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 #nullable disable
 
@@ -74,8 +87,8 @@ namespace Biblioteca.Areas.Identity.Pages.Account
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
-            [Required(ErrorMessage = "O e-mail é obrigatório")]
-            [EmailAddress(ErrorMessage = "Formato de e-mail inválido")]
+            [Required(ErrorMessage = "O e-mail é obrigatório.")]
+            [EmailAddress(ErrorMessage = "Formato de e-mail inválido.")]
             [Display(Name = "E-mail")]
             public string Email { get; set; }
 
@@ -83,9 +96,9 @@ namespace Biblioteca.Areas.Identity.Pages.Account
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
-            [Required(ErrorMessage = "A senha é obrigatória")]
-            [StringLength(100, ErrorMessage = "A senha deve ter no mínimo 4 caracteres e, no máximo, 100 caracteres", MinimumLength = 4)]
-            [DataType(DataType.Password, ErrorMessage = "Formato da senha está incorreto")]
+            [Required(ErrorMessage = "A senha é obrigatória.")]
+            [StringLength(100, ErrorMessage = "A senha deve ter, no mínimo 4 caracteres e no máximo 100 caracteres.", MinimumLength = 4)]
+            [DataType(DataType.Password, ErrorMessage = "O formato da senha está incorreto.")]
             [Display(Name = "Senha")]
             public string Password { get; set; }
 
@@ -95,7 +108,7 @@ namespace Biblioteca.Areas.Identity.Pages.Account
             /// </summary>
             [DataType(DataType.Password)]
             [Display(Name = "Confirme a Senha")]
-            [Compare("Password", ErrorMessage = "A senha e a confirmação estão diferentes")]
+            [Compare("Password", ErrorMessage = "A senha e a confirmação da senha estão diferentes.")]
             public string ConfirmPassword { get; set; }
         }
 
@@ -120,22 +133,23 @@ namespace Biblioteca.Areas.Identity.Pages.Account
 
                 if (result.Succeeded)
                 {
-                    _logger.LogInformation("Usuário cadastrado com sucesso.");
+                    _logger.LogInformation("Usuário Cadastrado com Sucesso.");
 
                     var userId = await _userManager.GetUserIdAsync(user);
-                    var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                    code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
-                    var callbackUrl = Url.Page(
-                        "/Account/ConfirmEmail",
-                        pageHandler: null,
-                        values: new { area = "Identity", userId = userId, code = code, returnUrl = returnUrl },
-                        protocol: Request.Scheme);
-
-                    await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
-                        $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
-
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     {
+                        var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                        code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
+                        var callbackUrl = Url.Page(
+                            "/Account/ConfirmEmail",
+                            pageHandler: null,
+                            values: new { area = "Identity", userId = userId, code = code, returnUrl = returnUrl },
+                            protocol: Request.Scheme);
+
+                        await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
+                            $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+
+
                         return RedirectToPage("RegisterConfirmation", new { email = Input.Email, returnUrl = returnUrl });
                     }
                     else
