@@ -22,8 +22,23 @@ namespace Biblioteca.Controllers
         // GET: Livros
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Livros.Include(l => l.Genero);
-            return View(await applicationDbContext.ToListAsync());
+            var livros = await _context.Livros.ToListAsync();
+            var avaliacoes = await _context.Avaliacoes.ToListAsync();
+
+            // Dicionário: LivroId -> (Media, Quantidade)
+            var medias = livros.ToDictionary(
+                l => l.LivroId,
+                l =>
+                {
+                    var avs = avaliacoes.Where(a => a.LivroId == l.LivroId).ToList();
+                    double media = avs.Any() ? avs.Average(a => a.Nota) : 0;
+                    int qtd = avs.Count;
+                    return (media, qtd);
+                });
+
+            ViewBag.MediasAvaliacoes = medias;
+
+            return View(livros);
         }
 
         // GET: Livros/Details/5

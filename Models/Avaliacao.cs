@@ -1,4 +1,5 @@
-﻿using System.Diagnostics.Contracts;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.Contracts;
 
 namespace Biblioteca.Models
 {
@@ -6,6 +7,7 @@ namespace Biblioteca.Models
     {
         public int AvaliacaoId { get; set; }
 
+        [Range(0, 5, ErrorMessage = "A nota deve ser de 0 a 5.")]
         public int Nota { get; set; }
 
         public string? Comentario { get; set; }
