@@ -262,13 +262,13 @@ namespace Biblioteca.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "7d1c1cf1-f242-4618-85f7-6d5cfb6eb678",
+                            Id = "69c21070-0ce0-4fbd-adbc-61eec3603539",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "4eb2a810-36a3-4a86-9b13-c5b5ee3e6cd0",
+                            Id = "5b1536e6-8c78-4893-89ef-8f37849d9560",
                             Name = "Aluno",
                             NormalizedName = "ALUNO"
                         });
@@ -366,17 +366,17 @@ namespace Biblioteca.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "95c9992c-b03c-4a72-bcec-a43816724b19",
+                            Id = "cf8a333d-41b0-4256-8bd7-67f930bae548",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "f0ad3049-36e6-4217-9375-19c98fa7ac9e",
+                            ConcurrencyStamp = "9ec6b148-ab97-4f37-8ed0-1a6ee1588221",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEDzJMRq5hD5F3Hbi6di4xCyTCJTiBMFUAI8t4Fw8kbARxU9l0c2hTR67C7sMOUYMPg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEMoyA5npl3ZGDqeCAqTCT4OrC0ptn5h3gqmEFK3S/YaKZqgt2Xg695uEi7u7u7NOvA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "7dfeee2b-8a79-49b2-8b39-09522c447bbf",
+                            SecurityStamp = "40b721b5-4f6a-4df2-a447-3739b81c51a1",
                             TwoFactorEnabled = false,
                             UserName = "admin@admin.com"
                         });
@@ -410,12 +410,10 @@ namespace Biblioteca.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderKey")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("nvarchar(max)");
@@ -448,8 +446,8 @@ namespace Biblioteca.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "95c9992c-b03c-4a72-bcec-a43816724b19",
-                            RoleId = "7d1c1cf1-f242-4618-85f7-6d5cfb6eb678"
+                            UserId = "cf8a333d-41b0-4256-8bd7-67f930bae548",
+                            RoleId = "69c21070-0ce0-4fbd-adbc-61eec3603539"
                         });
                 });
 
@@ -459,12 +457,10 @@ namespace Biblioteca.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("LoginProvider")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Value")
                         .HasColumnType("nvarchar(max)");
