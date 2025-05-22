@@ -6,14 +6,12 @@
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
 
-
 @if (SignInManager.IsSignedIn(User))
 {
     var userId = UserManager.GetUserId(User);
-    var usuarioId = DbContext.Usuarios
-        .Where(u => u.AppUserId.ToString() == userId)
-        .Select(u => u.UsuarioId)
-        .FirstOrDefault();
+    var usuario = DbContext.Usuarios.FirstOrDefault(u => u.AppUserId.ToString() == userId);
+    var usuarioId = usuario?.UsuarioId ?? 0;
+    var urlFoto = usuario?.UrlFoto;
 
     <div class="d-flex align-items-center">
         <a class="text-light nav-link me-4"
@@ -21,6 +19,12 @@
            asp-action="Edit"
            asp-route-id="@usuarioId"
            title="Manage">
+            @if (!string.IsNullOrEmpty(urlFoto))
+            {
+                <img src="@Url.Action("BuscarFoto", "Usuarios", new { id = usuarioId })"
+                     class="rounded-circle me-2"
+                     style="width: 40px; height: 40px; object-fit: cover; border: 2px solid #fff;" />
+            }
             Olá @User.Identity?.Name!
         </a>
         <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">

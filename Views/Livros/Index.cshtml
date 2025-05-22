@@ -63,11 +63,11 @@
                         {
                             <img src="@Url.Action("BuscarCapa", "Livros", new { id = item.LivroId })"
                                  class="img-thumbnail"
-                                 style="width: 179px; height: 95px; object-fit: cover;" />
+                                 style="width: 100px; height: 160px; object-fit: cover;" />
                         }
                         else
                         {
-                            <img src="~/img/sem-imagem.jpg" alt="Sem Capa" class="img-thumbnail" style="width: 50px; height: 75px; object-fit: cover;" />
+                            <img src="~/img/sem-imagem.jpg" alt="Sem Capa" class="img-thumbnail img-fluid" style="width: 50px; height: 75px; object-fit: cover;" />
                         }
                     </td>
                     <td>
