@@ -1,6 +1,8 @@
-﻿@{
-    ViewData["Title"] = "✧˖° Página Inicial";
+﻿@model IEnumerable<Biblioteca.Models.Livro>
+@{
+    var medias = (Dictionary<int, (double media, int qtd)>)ViewBag.MediasAvaliacoes;
 }
+
 
 <div id="divPesquisa" class="bg-dark pt-4 pb-4 text-light">
     <p class="fs-4 text-center">Encontre seu livro, pelo nome, autor ou editora.</p>
@@ -147,68 +149,96 @@
 </div>
 
 <div id="divAvalicao">
-
     <div class="parallax pt-4">
-        <h2 class="text-center text-black bg-transparent m-0 pt-4">Livros com Melhores Avaliações</h2>
-        <div class="pt-4 d-flex justify-content-evenly">
-            <div class="card text-center mt-2">
-                <div class="w-100 text-center mt-3">
-                    <img src="~/img/livro9.png" class="card-img-top img-fluid" alt="Capa do Livro">
-                </div>
-                <div class="card-body">
-                    <h4 class="card-title">O Beco</h4>
-                    <h5 class="lead">Junji Ito</h5>
-                    <p>Avaliações</p>
-                    <p class="text-center">
-                        <a href="#" class="card-link btn btn-outline-dark">Reservar</a>
-                    </p>
-                </div>
-            </div>
-
-            <div class="card text-center mt-2">
-                <div class="w-100 text-center mt-3">
-                    <img src="~/img/livro10.png" class="card-img-top img-fluid" alt="Capa do Livro">
-                </div>
-                <div class="card-body">
-                    <h4 class="card-title">Gyo</h4>
-                    <h5 class="lead">Junji Ito</h5>
-                    <p>Avaliações</p>
-                    <p class="text-center">
-                        <a href="#" class="card-link btn btn-outline-dark">Reservar</a>
-                    </p>
-                </div>
-            </div>
-
-            <div class="card text-center mt-2">
-                <div class="w-100 text-center mt-3">
-                    <img src="~/img/livro11.png" class="card-img-top img-fluid" alt="Capa do Livro">
-                </div>
-                <div class="card-body">
-                    <h4 class="card-title">Uzumaki</h4>
-                    <h5 class="lead">Junji Ito</h5>
-                    <p>Avaliações</p>
-                    <p class="text-center">
-                        <a href="#" class="card-link btn btn-outline-dark">Reservar</a>
-                    </p>
-                </div>
-            </div>
-
-            <div class="card text-center mt-2">
-                <div class="w-100 text-center mt-3">
-                    <img src="~/img/livro12.png" class="card-img-top img-fluid" alt="Capa do Livro">
-                </div>
-                <div class="card-body">
-                    <h4 class="card-title">Mortos de Amor</h4>
-                    <h5 class="lead">Junji Ito</h5>
-                    <p>Avaliações</p>
-                    <p class="text-center">
-                        <a href="#" class="card-link btn btn-outline-dark">Reservar</a>
-                    </p>
-                </div>
-            </div>
+        <h2 class="text-center text-light m-0 bg-dark pt-4 shadow-custom">Livros com Melhores Avaliações</h2>
+        <div class="pt-4 d-flex flex-wrap justify-content-evenly">
+            @if (Model != null && Model.Any())
+            {
+                foreach (var livro in Model)
+                {
+                    <div class="card text-center mt-2" style="width: 13rem;">
+                        <div class="w-100 text-center mt-3">
+                            <img src="@(string.IsNullOrEmpty(livro.UrlCapa) ? Url.Content("~/img/sem-imagem.jpg") : Url.Action("BuscarCapa", "Livros", new { id = livro.LivroId }))"
+                                 class="card-img-top img-fluid"
+                                 alt="Capa do Livro" style="height: 200px; object-fit: cover;" />
+                        </div>
+                        <div class="card-body">
+                            <h4 class="card-title">@livro.Titulo</h4>
+                            <h5 class="lead">@livro.Autor</h5>
+                            <p>
+                                @if (medias[livro.LivroId].qtd > 0)
+                                {
+                                    <span>⭐ @medias[livro.LivroId].media.ToString("0.0")</span>
+                                    <span> (@medias[livro.LivroId].qtd avaliações)</span>
+                                }
+                                else
+                                {
+                                    <span>Sem avaliações</span>
+                                }
+                            </p>
+                            <p class="text-center">
+                                <a href="@Url.Action("Create", "Avaliacoes", new { livroId = livro.LivroId })"
+                                   class="card-link btn btn-outline-warning">Avaliar</a>
+                                <a href="#" class="card-link btn btn-outline-dark">Reservar</a>
+                            </p>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <p class="text-center text-light">Nenhum livro encontrado.</p>
+            }
         </div>
     </div>
+
+
+
+
+    @* <div class="card text-center mt-2"> *@
+    @*     <div class="w-100 text-center mt-3"> *@
+    @*         <img src="~/img/livro10.png" class="card-img-top img-fluid" alt="Capa do Livro"> *@
+    @*     </div> *@
+    @*     <div class="card-body"> *@
+    @*         <h4 class="card-title">Gyo</h4> *@
+    @*         <h5 class="lead">Junji Ito</h5> *@
+    @*         <p>Avaliações</p> *@
+    @*         <p class="text-center"> *@
+    @*             <a href="#" class="card-link btn btn-outline-dark">Reservar</a> *@
+    @*         </p> *@
+
+    @*     </div> *@
+    @* </div> *@
+
+    @* <div class="card text-center mt-2"> *@
+    @*     <div class="w-100 text-center mt-3"> *@
+    @*         <img src="~/img/livro11.png" class="card-img-top img-fluid" alt="Capa do Livro"> *@
+    @*     </div> *@
+    @*     <div class="card-body"> *@
+    @*         <h4 class="card-title">Uzumaki</h4> *@
+    @*         <h5 class="lead">Junji Ito</h5> *@
+    @*         <p>Avaliações</p> *@
+    @*         <p class="text-center"> *@
+    @*             <a href="#" class="card-link btn btn-outline-dark">Reservar</a> *@
+    @*         </p> *@
+    @*     </div> *@
+    @* </div> *@
+
+    @* <div class="card text-center mt-2"> *@
+    @*     <div class="w-100 text-center mt-3"> *@
+    @*         <img src="~/img/livro12.png" class="card-img-top img-fluid" alt="Capa do Livro"> *@
+    @*     </div> *@
+    @*     <div class="card-body"> *@
+    @*         <h4 class="card-title">Mortos de Amor</h4> *@
+    @*         <h5 class="lead">Junji Ito</h5> *@
+    @*         <p>Avaliações</p> *@
+    @*         <p class="text-center"> *@
+    @*             <a href="#" class="card-link btn btn-outline-dark">Reservar</a> *@
+    @*         </p> *@
+    @*     </div> *@
+    @* </div> *@
 </div>
+
 
 
 <div id="divFooter" class="bg-dark text-center p-3">

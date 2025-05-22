@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Biblioteca.Data;
 using Biblioteca.Models;
+using System.Security.Claims;
 
 namespace Biblioteca.Controllers
 {
@@ -20,11 +21,39 @@ namespace Biblioteca.Controllers
         }
 
         // GET: Avaliacoes
+        // AvaliacoesController.cs
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Avaliacoes.Include(a => a.Livro).Include(a => a.Usuario);
-            return View(await applicationDbContext.ToListAsync());
+            // Obtém o GUID do usuário logado (Identity)
+            var appUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            // Busca o UsuarioId (int) correspondente ao AppUserId (Guid)
+            var usuario = await _context.Usuarios
+                .FirstOrDefaultAsync(u => u.AppUserId.ToString() == appUserId);
+
+            if (usuario == null)
+            {
+                // Usuário não encontrado, pode redirecionar ou retornar vazio
+                return View(new List<Avaliacao>());
+            }
+
+            var usuarioId = usuario.UsuarioId;
+
+            var livrosRetirados = await _context.Movimentacoes
+                .Where(m => m.UsuarioId == usuarioId)
+                .Select(m => m.LivroId)
+                .Distinct()
+                .ToListAsync();
+
+            var avaliacoes = await _context.Avaliacoes
+                .Where(a => livrosRetirados.Contains(a.LivroId))
+                .Include(a => a.Livro)
+                .Include(a => a.Usuario)
+                .ToListAsync();
+
+            return View(avaliacoes);
         }
+
 
         // GET: Avaliacoes/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -65,7 +94,8 @@ namespace Biblioteca.Controllers
             {
                 _context.Add(avaliacao);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                // Redireciona para a Home, que já recarrega as médias e quantidades
+                return RedirectToAction("Index", "Home");
             }
             ViewData["LivroId"] = new SelectList(_context.Livros, "LivroId", "LivroId", avaliacao.LivroId);
             ViewData["UsuarioId"] = new SelectList(_context.Usuarios, "UsuarioId", "UsuarioId", avaliacao.UsuarioId);
@@ -166,5 +196,7 @@ namespace Biblioteca.Controllers
         {
             return _context.Avaliacoes.Any(e => e.AvaliacaoId == id);
         }
+
+
     }
 }
