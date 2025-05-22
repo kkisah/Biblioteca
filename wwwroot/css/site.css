@@ -1,0 +1,258 @@
+﻿@import url('https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap');
+
+html {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Libre Caslon Display', sans-serif !important;
+    background-image: url("../img/wpp-biblioteca.jpg") !important;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
+}
+
+a {
+    color: #ff00a1 !important;
+}
+
+button {
+    background-color: #ff00a1 !important;
+}
+
+.parallax {
+    background-image: url('../img/anime-biblioteca2.jpg');
+    height: 550px;
+    max-height: 550px;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+header {
+    box-shadow: rgba(0,0,0,.3) 0px 5px;
+}
+
+#divPesquisa {
+}
+
+
+.form-busca {
+    margin: 0 auto;
+    text-align: center;
+    width: 60%;
+    font-size: 12px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+    .form-busca input {
+        padding: 5px 20px;
+        font-size: 14px;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+
+#divLancamentos, #divTop5, #divAvalicao {
+    max-height: 520px;
+    height: 520px;
+}
+
+    #divLancamentos .card, #divTop5 .card, #divAvalicao .card {
+        margin: 0 32px 0 32px;
+        width: 18rem;
+        text-align: center;
+        box-shadow: rgba(0,0,0,.4) 10px 10px;
+        height: 400px;
+        max-height: 400px;
+    }
+
+        #divLancamentos .card img, #divTop5 .card img, #divAvalicao .card img {
+            height: 200px;
+            width: 150px;
+        }
+
+
+.text-shadow-white {
+    text-shadow: 2px 2px 2px white;
+}
+
+#divLogin {
+    margin: auto auto;
+    width: 40%;
+    font-size: 12px;
+    font-family: 'Indie Flower', sans-serif !important;
+    border: 2px solid #808080;
+    padding: 32px;
+    border-radius: 16px;
+    margin-top: 50px;
+}
+
+    #divLogin input {
+        padding: 15px 20px;
+    }
+
+        #divLogin input:last-child {
+            padding: 12px 12px;
+        }
+
+
+.checkbox-label {
+    display: flex;
+    align-items: center; /* <-- Isso centraliza verticalmente */
+    gap: 8px;
+    cursor: pointer;
+}
+
+.custom-checkbox {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #ff00a1;
+    border-radius: 4px;
+    position: relative;
+    cursor: pointer;
+}
+
+    .custom-checkbox:checked {
+        background-color: #ff00a1;
+    }
+
+        .custom-checkbox:checked::after {
+            content: '✓';
+            color: white;
+            font-size: 14px;
+            font-weight: bold;
+            position: absolute;
+            top: 0;
+            left: 4px;
+            line-height: 20px;
+        }
+
+
+.custom-alert {
+    background-color: #ffe6ec !important;
+    color: #c2185b;
+    border: 1px solid #f5c2c7;
+    border-radius: 10px;
+    font-family: 'Indie Flower', cursive;
+    font-size: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px;
+    min-height: 50px;
+    position: relative;
+}
+
+    .custom-alert p {
+        margin: 0;
+        font-weight: bold;
+        flex: 1;
+    }
+
+    .custom-alert .btn-close {
+        background-color: #ff66b2;
+        border: none;
+        border-radius: 0 10px 10px 0;
+        width: 40px;
+        height: 100%;
+        font-size: 1.5rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: black;
+        opacity: 1;
+        padding: 0;
+    }
+
+
+#divUsuario {
+    width: 60%;
+    margin: auto auto;
+    font-size: 16px;
+    padding: 32px;
+    border-radius: 16px;
+    margin-top: 50px;
+    box-shadow: rgba(0,0,0,.4) 12px 12px;
+}
+
+    #divUsuario button {
+        width: 250px;
+        padding: 16px;
+    }
+
+    #divUsuario input {
+        font-size: 16px;
+        padding: 12px;
+    }
+
+
+#divLivro {
+    font-size: 16px;
+    border-radius: 16px;
+    margin-top: 42px;
+    box-shadow: rgba(0,0,0,.4) 12px 12px;
+}
+
+    #divLivro button {
+        width: 250px;
+        padding: 16px;
+    }
+
+    #divLivro input {
+        font-size: 16px;
+        padding: 12px;
+    }
+
+    #divLivro select {
+        font-size: 16px;
+        padding: 12px;
+    }
+
+    #divLivro textarea {
+        font-size: 16px;
+        padding: 12px;
+    }
+
+    #divLivro a {
+        font-size: 16px;
+        padding: 12px;
+    }
+
+
+#listaLivros {
+    font-size: 16px;
+    border-radius: 16px;
+    margin-top: 42px;
+    box-shadow: rgba(0,0,0,.4) 12px 12px;
+}
+
+    #listaLivros input {
+        font-size: 16px;
+        padding: 12px;
+    }
+
+    #listaLivros a {
+        font-size: 16px;
+        padding: 12px;
+    }
