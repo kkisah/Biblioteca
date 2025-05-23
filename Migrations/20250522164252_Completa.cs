@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Biblioteca.Migrations
 {
     /// <inheritdoc />
-    public partial class completa : Migration
+    public partial class Completa : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -111,8 +111,8 @@ namespace Biblioteca.Migrations
                 name: "AspNetUserLogins",
                 columns: table => new
                 {
-                    LoginProvider = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
-                    ProviderKey = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
+                    LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ProviderKey = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     ProviderDisplayName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
@@ -156,8 +156,8 @@ namespace Biblioteca.Migrations
                 columns: table => new
                 {
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    LoginProvider = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
+                    LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Value = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
@@ -318,19 +318,19 @@ namespace Biblioteca.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "4eb2a810-36a3-4a86-9b13-c5b5ee3e6cd0", null, "Aluno", "ALUNO" },
-                    { "7d1c1cf1-f242-4618-85f7-6d5cfb6eb678", null, "Admin", "ADMIN" }
+                    { "5b1536e6-8c78-4893-89ef-8f37849d9560", null, "Aluno", "ALUNO" },
+                    { "69c21070-0ce0-4fbd-adbc-61eec3603539", null, "Admin", "ADMIN" }
                 });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "95c9992c-b03c-4a72-bcec-a43816724b19", 0, "f0ad3049-36e6-4217-9375-19c98fa7ac9e", "admin@admin.com", true, false, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAIAAYagAAAAEDzJMRq5hD5F3Hbi6di4xCyTCJTiBMFUAI8t4Fw8kbARxU9l0c2hTR67C7sMOUYMPg==", null, false, "7dfeee2b-8a79-49b2-8b39-09522c447bbf", false, "admin@admin.com" });
+                values: new object[] { "cf8a333d-41b0-4256-8bd7-67f930bae548", 0, "9ec6b148-ab97-4f37-8ed0-1a6ee1588221", "admin@admin.com", true, false, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAIAAYagAAAAEMoyA5npl3ZGDqeCAqTCT4OrC0ptn5h3gqmEFK3S/YaKZqgt2Xg695uEi7u7u7NOvA==", null, false, "40b721b5-4f6a-4df2-a447-3739b81c51a1", false, "admin@admin.com" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
                 columns: new[] { "RoleId", "UserId" },
-                values: new object[] { "7d1c1cf1-f242-4618-85f7-6d5cfb6eb678", "95c9992c-b03c-4a72-bcec-a43816724b19" });
+                values: new object[] { "69c21070-0ce0-4fbd-adbc-61eec3603539", "cf8a333d-41b0-4256-8bd7-67f930bae548" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
