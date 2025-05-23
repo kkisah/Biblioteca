@@ -57,6 +57,16 @@ namespace Biblioteca.Controllers
         // POST: Reservas/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        public IActionResult Create()
+        {
+            ViewData["LivroId"] = new SelectList(_context.Livros, "LivroId", "LivroId");
+            ViewData["UsuarioId"] = new SelectList(_context.Usuarios, "UsuarioId", "UsuarioId");
+            return View();
+        }
+
+        // POST: Reservas/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(
@@ -167,7 +177,6 @@ namespace Biblioteca.Controllers
 
             return RedirectToAction(nameof(Index));
         }
-
         // GET: Reservas/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
