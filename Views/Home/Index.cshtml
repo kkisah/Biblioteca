@@ -27,7 +27,7 @@
                         <h4 class="card-title">Dismorfos</h4>
                         <h5 class="lead">Junji Ito</h5>
                         <p>Avaliações</p>
-                        <a href="#" class="card-link btn btn-outline-dark w-100">Reservar</a>
+                        <a asp-controller="Reservas" asp-action="Index" class="card-link btn btn-outline-dark w-100">Reservar</a>
                     </div>
                 </div>
             </div>
@@ -36,7 +36,7 @@
                      data-titulo="Sensor"
                      data-descricao="Sensor é uma obra de terror psicológico de Junji Ito, explorando mistérios sobrenaturais."
                      data-avaliacao="4.6/5">
-                    <img src="~/img/livro1.png" class="card-img-top img-fluid" style="max-height:140px; object-fit:contain;" alt="Capa do Livro">
+                    <img src="~/img/livro1.png" class="card-img-top img-fluid" style="max-height:180px; object-fit:contain;" alt="Capa do Livro">
                     <div class="card-body">
                         <h4 class="card-title">Sensor</h4>
                         <h5 class="lead">Junji Ito</h5>
@@ -50,7 +50,7 @@
                      data-titulo="Cidade das Lápides"
                      data-descricao="Uma cidade misteriosa onde lápides escondem segredos sombrios. Junji Ito no seu melhor."
                      data-avaliacao="4.7/5">
-                    <img src="~/img/livro2.png" class="card-img-top img-fluid" style="max-height:140px; object-fit:contain;" alt="Capa do Livro">
+                    <img src="~/img/livro2.png" class="card-img-top img-fluid" style="max-height:180px; object-fit:contain;" alt="Capa do Livro">
                     <div class="card-body">
                         <h4 class="card-title">Cidade das Lápides</h4>
                         <h5 class="lead">Junji Ito</h5>
@@ -64,7 +64,7 @@
                      data-titulo="Buracos da Estranheza"
                      data-descricao="Contos de horror e mistério que desafiam a lógica, por Junji Ito."
                      data-avaliacao="4.9/5">
-                    <img src="~/img/livro3.png" class="card-img-top mx-auto d-block mt-2 mb-2" style="max-height:140px; width:auto; object-fit:contain;" alt="Capa do Livro">
+                    <img src="~/img/livro3.png" class="card-img-top img-fluid" style="max-height:180px; width:auto; object-fit:contain;" alt="Capa do Livro">
                     <div class="card-body">
                         <h6 class="card-title mb-1" style="font-size:1.1rem;">Buracos da Estranheza</h6>
                         <h5 class="lead">Junji Ito</h5>
@@ -73,6 +73,10 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+</div>
+
         </div>
     </div>
 </div>
@@ -251,6 +255,95 @@
     @*         </p> *@
     @*     </div> *@
     @* </div> *@
+<div id="divAvalicao">
+    <div class="parallax pt-4">
+        <h2 class="text-center text-light m-0 bg-dark pt-4 shadow-custom">Livros com Melhores Avaliações</h2>
+        <div class="pt-4 d-flex flex-wrap justify-content-evenly">
+            @if (Model != null && Model.Any())
+            {
+                foreach (var livro in Model)
+                {
+                    <div class="card text-center mt-2" style="width: 13rem;">
+                        <div class="w-100 text-center mt-3">
+                            <img src="@(string.IsNullOrEmpty(livro.UrlCapa) ? Url.Content("~/img/sem-imagem.jpg") : Url.Action("BuscarCapa", "Livros", new { id = livro.LivroId }))"
+                                 class="card-img-top img-fluid"
+                                 alt="Capa do Livro" style="height: 200px; object-fit: cover;" />
+                        </div>
+                        <div class="card-body">
+                            <h4 class="card-title">@livro.Titulo</h4>
+                            <h5 class="lead">@livro.Autor</h5>
+                            <p>
+                                @if (medias[livro.LivroId].qtd > 0)
+                                {
+                                    <span>⭐ @medias[livro.LivroId].media.ToString("0.0")</span>
+                                    <span> (@medias[livro.LivroId].qtd avaliações)</span>
+                                }
+                                else
+                                {
+                                    <span>Sem avaliações</span>
+                                }
+                            </p>
+                            <p class="text-center">
+                                <a href="@Url.Action("Create", "Avaliacoes", new { livroId = livro.LivroId })"
+                                   class="card-link btn btn-outline-light">Avaliar</a>
+                                <a href="#" class="card-link btn btn-outline-dark">Reservar</a>
+                            </p>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <p class="text-center text-light">Nenhum livro encontrado.</p>
+            }
+        </div>
+    </div>
+
+
+
+
+    @* <div class="card text-center mt-2"> *@
+    @*     <div class="w-100 text-center mt-3"> *@
+    @*         <img src="~/img/livro10.png" class="card-img-top img-fluid" alt="Capa do Livro"> *@
+    @*     </div> *@
+    @*     <div class="card-body"> *@
+    @*         <h4 class="card-title">Gyo</h4> *@
+    @*         <h5 class="lead">Junji Ito</h5> *@
+    @*         <p>Avaliações</p> *@
+    @*         <p class="text-center"> *@
+    @*             <a href="#" class="card-link btn btn-outline-dark">Reservar</a> *@
+    @*         </p> *@
+
+    @*     </div> *@
+    @* </div> *@
+
+    @* <div class="card text-center mt-2"> *@
+    @*     <div class="w-100 text-center mt-3"> *@
+    @*         <img src="~/img/livro11.png" class="card-img-top img-fluid" alt="Capa do Livro"> *@
+    @*     </div> *@
+    @*     <div class="card-body"> *@
+    @*         <h4 class="card-title">Uzumaki</h4> *@
+    @*         <h5 class="lead">Junji Ito</h5> *@
+    @*         <p>Avaliações</p> *@
+    @*         <p class="text-center"> *@
+    @*             <a href="#" class="card-link btn btn-outline-dark">Reservar</a> *@
+    @*         </p> *@
+    @*     </div> *@
+    @* </div> *@
+
+    @* <div class="card text-center mt-2"> *@
+    @*     <div class="w-100 text-center mt-3"> *@
+    @*         <img src="~/img/livro12.png" class="card-img-top img-fluid" alt="Capa do Livro"> *@
+    @*     </div> *@
+    @*     <div class="card-body"> *@
+    @*         <h4 class="card-title">Mortos de Amor</h4> *@
+    @*         <h5 class="lead">Junji Ito</h5> *@
+    @*         <p>Avaliações</p> *@
+    @*         <p class="text-center"> *@
+    @*             <a href="#" class="card-link btn btn-outline-dark">Reservar</a> *@
+    @*         </p> *@
+    @*     </div> *@
+    @* </div> *@
 </div>
 
 
@@ -274,5 +367,5 @@
 </div>
 
 <div id="divFooter" class="bg-dark text-center p-3">
-    <p class="lead text-light pt-3">Desenvolvido com 🤍 por Izzy</p>
+    <p class="lead text-light pt-3">Desenvolvido com 🤍 por Izzy, Vicente e Daniel</p>
 </div>

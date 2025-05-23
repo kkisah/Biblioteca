@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<Biblioteca.Models.Usuario>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "✧˖° Cadastro";
     var rolesPorUsuario = ViewBag.RolesPorUsuario as Dictionary<int, string>;
 }
 
@@ -15,7 +15,7 @@
                 <div class="input-group">
                     <input type="text" name="searchTerm" class="form-control" placeholder="Localizar usuário..." />
                     <button type="submit" class="btn btn-outline-light">
-                        <i class="bi bi-search"></i> Localizar
+                        <i class="bi bi-search-heart"></i> Localizar
                     </button>
                 </div>
             </form>
@@ -24,9 +24,9 @@
         <table class="table table-transparent table-striped mt-3">
             <thead>
                 <tr>
+                    <th>@Html.DisplayNameFor(model => model.UrlFoto)</th>
                     <th>@Html.DisplayNameFor(model => model.NomeCompleto)</th>
                     <th>@Html.DisplayNameFor(model => model.Celular)</th>
-                    <th>@Html.DisplayNameFor(model => model.UrlFoto)</th>
                     <th>Role</th>
                     <th></th>
                     <th></th>
@@ -36,17 +36,25 @@
                 @foreach (var item in Model)
                 {
                     <tr>
+                        <td>
+                            @if (!string.IsNullOrEmpty(item.UrlFoto))
+                            {
+                                <img src="@Url.Action("BuscarFoto", "Usuarios", new { id = item.UsuarioId })"
+                                     class="rounded-circle"
+                                     style="width: 90px; height: 90px; object-fit: cover;" />
+
+                            }
+                        </td>
                         <td>@Html.DisplayFor(modelItem => item.NomeCompleto)</td>
                         <td>@Html.DisplayFor(modelItem => item.Celular)</td>
-                        <td>@Html.DisplayFor(modelItem => item.UrlFoto)</td>
                         <td>
                             @(rolesPorUsuario != null && rolesPorUsuario.ContainsKey(item.UsuarioId)
                                 ? rolesPorUsuario[item.UsuarioId]
                                 : "Nenhuma")
                         </td>
                         <td>
-                            <a asp-action="Edit" asp-route-id="@item.UsuarioId" class="text-light text-decoration-none me-2"><i class="bi bi-pencil-square"></i></a>
-                            <a asp-action="Delete" asp-route-id="@item.UsuarioId" class="text-light text-decoration-none me-2"><i class="bi bi-trash3"></i></a>
+                            <a asp-action="Edit" asp-route-id="@item.UsuarioId" class="text-dark text-decoration-none me-2"><i class="bi bi-pencil-square"></i></a>
+                            <a asp-action="Delete" asp-route-id="@item.UsuarioId" class="text-dark text-decoration-none me-2"><i class="bi bi-trash3"></i></a>
                         </td>
                         <td>
                             @if (rolesPorUsuario != null && rolesPorUsuario.ContainsKey(item.UsuarioId) && rolesPorUsuario[item.UsuarioId] == "Admin")
