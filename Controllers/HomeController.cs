@@ -18,6 +18,7 @@ namespace Biblioteca.Controllers
             _context = context;
         }
 
+
         public async Task<IActionResult> Index()
         {
             var livros = await _context.Livros.ToListAsync();
@@ -32,6 +33,26 @@ namespace Biblioteca.Controllers
                     int qtd = avs.Count;
                     return (media, qtd);
                 });
+
+
+            var top5Livros = await _context.Reservas
+                .GroupBy(r => r.LivroId)
+                .OrderByDescending(g => g.Count())
+                .Take(5)
+                .Select(g => g.Key)
+                .ToListAsync();
+
+            var livrosMaisReservados = await _context.Livros
+                .Include(l => l.Genero)
+                .Where(l => top5Livros.Contains(l.LivroId))
+                .ToListAsync();
+
+            // Ordena conforme o ranking
+            livrosMaisReservados = top5Livros
+                .Select(id => livrosMaisReservados.First(l => l.LivroId == id))
+                .ToList();
+
+            ViewBag.LivrosMaisReservados = livrosMaisReservados;
 
             ViewBag.MediasAvaliacoes = medias;
             return View(livros ?? new List<Livro>());

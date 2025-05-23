@@ -34,11 +34,14 @@
                 <div class="mb-3">
                     <label asp-for="UsuarioId" class="form-label"></label>
                     <select asp-for="UsuarioId" class="form-select" asp-items="ViewBag.UsuarioId"></select>
-                </div>
-                <div class="d-flex justify-content-between">
-                    <a asp-action="Index" class="btn btn-outline-secondary">Voltar</a>
-                    <input type="submit" value="Salvar" class="btn btn-light" />
-                </div>
+                    <div class="form-group d-flex justify-content-between pt-4">
+
+                        <button asp-action="Index" class="btn btn-outline-light fs-5"><i class="bi bi-arrow-clockwise"></i> Voltar</button>
+
+                        <button type="submit" id="btnSalvar" class="btn btn-light fs-5">
+                            <i class="bi bi-floppy"></i>  Salvar
+                        </button>
+                    </div>
             </form>
         </div>
     </div>
