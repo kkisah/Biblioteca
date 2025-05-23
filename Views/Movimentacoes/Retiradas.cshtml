@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<Biblioteca.Models.Reserva>
 @{
-    ViewData["Title"] = "Retiradas de Livros";
+    ViewData["Title"] = "✧˖° Retiradas de Livros";
     var tabAtiva = ViewBag.TabAtiva as string ?? "retirada";
 }
 
@@ -56,7 +56,7 @@
                         <div class="input-group">
                             <input type="text" name="searchTerm" class="form-control" placeholder="Localizar Retirada..." />
                             <button type="submit" class="btn btn-outline-light">
-                                <i class="bi bi-search"></i> Localizar
+                                <i class="bi bi-search-heart"></i> Localizar
                             </button>
                         </div>
                     </form>
@@ -85,13 +85,13 @@
                                         <td>@item.Livro?.Titulo</td>
                                         <td>
                                             <a asp-controller="Movimentacoes" asp-action="Retirar" asp-route-id="@item.ReservaId"
-                                               class="btn btn-light text-decoration-none">
+                                               class="btn btn-light text-light text-decoration-none">
                                                 Retirar
                                             </a>
                                         </td>
                                         <td>
                                             <a asp-controller="Reservas" asp-action="Cancelar" asp-route-id="@item.ReservaId"
-                                               class="btn btn-light text-decoration-none">
+                                               class="btn btn-light text-light text-decoration-none">
                                                 Cancelar
                                             </a>
                                         </td>

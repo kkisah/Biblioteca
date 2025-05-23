@@ -1,84 +1,142 @@
 ﻿@model Biblioteca.Models.Livro
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "✧˖° Editar Livro";
 }
 
-<h1>Edit</h1>
+<div id="divLivro" class="container bg-light text-dark mt-5 fs-5">
+    <h4 class="text-center fs-3">Editar Livro</h4>
+    <hr />
+    <form asp-action="Edit" enctype="multipart/form-data" method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="LivroId" />
 
-<h4>Livro</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="LivroId" />
-            <div class="form-group">
-                <label asp-for="Titulo" class="control-label"></label>
-                <input asp-for="Titulo" class="form-control" />
-                <span asp-validation-for="Titulo" class="text-danger"></span>
+        <div class="row gap-3 mb-3 mt-2">
+            <div class="col">
+                <div class="form-group">
+                    <label asp-for="Titulo" class="control-label"></label>
+                    <input asp-for="Titulo" class="form-control" />
+                    <span asp-validation-for="Titulo" class="text-danger"></span>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Autor" class="control-label"></label>
-                <input asp-for="Autor" class="form-control" />
-                <span asp-validation-for="Autor" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Descricao" class="control-label"></label>
-                <input asp-for="Descricao" class="form-control" />
-                <span asp-validation-for="Descricao" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Editora" class="control-label"></label>
-                <input asp-for="Editora" class="form-control" />
-                <span asp-validation-for="Editora" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DataPublicacao" class="control-label"></label>
-                <input asp-for="DataPublicacao" class="form-control" />
-                <span asp-validation-for="DataPublicacao" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="NumeroPaginas" class="control-label"></label>
-                <input asp-for="NumeroPaginas" class="form-control" />
-                <span asp-validation-for="NumeroPaginas" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Quantidade" class="control-label"></label>
-                <input asp-for="Quantidade" class="form-control" />
-                <span asp-validation-for="Quantidade" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="UrlCapa" class="control-label"></label>
-                <input asp-for="UrlCapa" class="form-control" />
-                <span asp-validation-for="UrlCapa" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ISBN10" class="control-label"></label>
-                <input asp-for="ISBN10" class="form-control" />
-                <span asp-validation-for="ISBN10" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ISBN13" class="control-label"></label>
-                <input asp-for="ISBN13" class="form-control" />
-                <span asp-validation-for="ISBN13" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="GeneroId" class="control-label"></label>
-                <select asp-for="GeneroId" class="form-control" asp-items="ViewBag.GeneroId"></select>
-                <span asp-validation-for="GeneroId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
-</div>
+        </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
+        <div class="row gap-3 mb-3">
+            <div class="col">
+                <div class="form-group">
+                    <label asp-for="Autor" class="control-label"></label>
+                    <input asp-for="Autor" class="form-control" />
+                    <span asp-validation-for="Autor" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label asp-for="Editora" class="control-label"></label>
+                    <input asp-for="Editora" class="form-control" />
+                    <span asp-validation-for="Editora" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="row gap-3 mb-3">
+            <div class="col">
+                <div class="form-group">
+                    <label asp-for="Descricao" class="control-label"></label>
+                    <textarea asp-for="Descricao" class="form-control" rows="3"></textarea>
+                    <span asp-validation-for="Descricao" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="row gap-3 mb-3">
+            <div class="col">
+                <div class="form-group">
+                    <label asp-for="DataPublicacao" class="control-label"></label>
+                    <input type="date" asp-for="DataPublicacao" class="form-control" />
+                    <span asp-validation-for="DataPublicacao" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label asp-for="NumeroPaginas" class="control-label"></label>
+                    <input type="number" asp-for="NumeroPaginas" class="form-control" />
+                    <span asp-validation-for="NumeroPaginas" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="row gap-3 mb-3">
+            <div class="col">
+                <div class="form-group">
+                    <label asp-for="Quantidade" class="control-label"></label>
+                    <input type="number" asp-for="Quantidade" class="form-control" />
+                    <span asp-validation-for="Quantidade" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label asp-for="GeneroId" class="control-label"></label>
+                    <select asp-for="GeneroId" class="form-control" asp-items="ViewBag.GeneroId"></select>
+                    <span asp-validation-for="GeneroId" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="row gap-3 mb-3">
+            <div class="col">
+                <div class="form-group">
+                    <label asp-for="ISBN10" class="control-label"></label>
+                    <input asp-for="ISBN10" class="form-control" />
+                    <span asp-validation-for="ISBN10" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label asp-for="ISBN13" class="control-label"></label>
+                    <input asp-for="ISBN13" class="form-control" />
+                    <span asp-validation-for="ISBN13" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="row gap-3 mb-3">
+            <div class="col">
+                <div class="form-group">
+                    <label asp-for="UrlCapa" class="control-label"></label>
+                    @if (!string.IsNullOrEmpty(Model.UrlCapa))
+                    {
+                        <div class="mb-2">
+                            <img src="@Url.Action("BuscarCapa", "Livros", new { id = Model.LivroId })"
+                                 style="width: 100px; height: 140px; object-fit: cover; border: 1px solid #ccc;" />
+                        </div>
+                    }
+                    <input type="file" name="UrlCapa" class="form-control" accept="image/*" />
+                    <span asp-validation-for="UrlCapa" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="row gap-3 mb-3">
+            <div class="col">
+                <div class="form-group d-flex justify-content-between pt-4">
+                    <a asp-action="Index" class="btn btn-outline-light fs-5"><i class="bi bi-arrow-clockwise"></i> Voltar</a>
+                    <button type="submit" class="btn btn-light fs-5">
+                        <i class="bi bi-floppy"></i> Salvar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        $(document).ready(function () {
+            $('input[name="ISBN10"]').mask('0-000-00000-0');
+            $('input[name="ISBN13"]').mask('000-0-000-00000-0');
+        });
+    </script>
 }
