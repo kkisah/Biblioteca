@@ -1,8 +1,8 @@
 ﻿@model IEnumerable<Biblioteca.Models.Livro>
 @{
     var medias = (Dictionary<int, (double media, int qtd)>)ViewBag.MediasAvaliacoes;
+    var livros = Model?.ToList() ?? new List<Biblioteca.Models.Livro>();
 }
-
 
 <div id="divPesquisa" class="bg-dark pt-4 pb-4 text-light">
     <div class="container">
@@ -19,62 +19,39 @@
     <div class="container">
         <h2 class="text-center text-dark m-0 pb-3">Lançamentos</h2>
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
-            <div class="col">
-                <div class="card card-lg h-100 text-center livro-card"
-                     data-titulo="Dismorfos"
-                     data-descricao="Um suspense psicológico de Junji Ito. Uma história envolvente sobre identidade e medo."
-                     data-avaliacao="4.8/5">
-                    <img src="~/img/livro.png" class="card-img-top img-fluid" style="max-height:140px; object-fit:contain;" alt="Capa do Livro">
-                    <div class="card-body">
-                        <h4 class="card-title">Dismorfos</h4>
-                        <h5 class="lead">Junji Ito</h5>
-                        <p>Avaliações</p>
-                        <a asp-controller="Reservas" asp-action="Index" class="card-link btn btn-outline-dark w-100">Reservar</a>
+            @foreach (var livro in livros.Take(4))
+            {
+                <div class="col">
+                    <div class="card card-lg h-100 text-center livro-card"
+                         data-titulo="@livro.Titulo"
+                         data-descricao="@livro.Descricao"
+                         data-avaliacao="@(medias[livro.LivroId].qtd > 0 ? $"{medias[livro.LivroId].media:0.0}/5" : "Sem avaliação")">
+                        <img src="@(string.IsNullOrEmpty(livro.UrlCapa) ? Url.Content("~/img/sem-imagem.jpg") : Url.Action("BuscarCapa", "Livros", new { id = livro.LivroId }))"
+                             class="card-img-top img-fluid"
+                             alt="Capa do Livro" style="height: 180px; object-fit: cover;" />
+                        <div class="card-body">
+                            <h4 class="card-title">@livro.Titulo</h4>
+                            <h5 class="lead">@livro.Autor</h5>
+                            <p>
+                                @if (medias[livro.LivroId].qtd > 0)
+                                {
+                                    <span>⭐ @medias[livro.LivroId].media.ToString("0.0")</span>
+                                    <span> (@medias[livro.LivroId].qtd avaliações)</span>
+                                }
+                                else
+                                {
+                                    <span>Sem avaliações</span>
+                                }
+                            </p>
+                            <p class="text-center">
+                                <a href="@Url.Action("Create", "Avaliacoes", new { livroId = livro.LivroId })"
+                                   class="card-link btn btn-outline-light">Avaliar</a>
+                                <a asp-controller="Reservas" asp-action="Index" class="card-link btn btn-outline-dark">Reservar</a>
+                            </p>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col">
-                <div class="card card-lg h-100 text-center livro-card"
-                     data-titulo="Sensor"
-                     data-descricao="Sensor é uma obra de terror psicológico de Junji Ito, explorando mistérios sobrenaturais."
-                     data-avaliacao="4.6/5">
-                    <img src="~/img/livro1.png" class="card-img-top img-fluid" style="max-height:180px; object-fit:contain;" alt="Capa do Livro">
-                    <div class="card-body">
-                        <h4 class="card-title">Sensor</h4>
-                        <h5 class="lead">Junji Ito</h5>
-                        <p>Avaliações</p>
-                        <a href="#" class="card-link btn btn-outline-dark w-100">Reservar</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card card-lg h-100 text-center livro-card"
-                     data-titulo="Cidade das Lápides"
-                     data-descricao="Uma cidade misteriosa onde lápides escondem segredos sombrios. Junji Ito no seu melhor."
-                     data-avaliacao="4.7/5">
-                    <img src="~/img/livro2.png" class="card-img-top img-fluid" style="max-height:180px; object-fit:contain;" alt="Capa do Livro">
-                    <div class="card-body">
-                        <h4 class="card-title">Cidade das Lápides</h4>
-                        <h5 class="lead">Junji Ito</h5>
-                        <p>Avaliações</p>
-                        <a href="#" class="card-link btn btn-outline-dark w-100">Reservar</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card card-lg h-100 text-center livro-card"
-                     data-titulo="Buracos da Estranheza"
-                     data-descricao="Contos de horror e mistério que desafiam a lógica, por Junji Ito."
-                     data-avaliacao="4.9/5">
-                    <img src="~/img/livro3.png" class="card-img-top img-fluid" style="max-height:140px; object-fit:contain;" alt="Capa do Livro">
-                    <div class="card-body">
-                        <h4 class="card-title">Buracos da Estranheza</h4>
-                        <h5 class="lead">Junji Ito</h5>
-                        <p>Avaliações</p>
-                        <a href="#" class="card-link btn btn-outline-dark w-100">Reservar</a>
-                    </div>
-                </div>
-            </div>
+            }
         </div>
     </div>
 </div>
@@ -85,76 +62,39 @@
     <div id="divTop5" class="pb-4">
         <div class="container">
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-5 g-4">
-                <div class="col">
-                    <div class="card card-lg h-100 text-center livro-card"
-                         data-titulo="Oyasumi Punpun 01"
-                         data-descricao="Primeiro volume da aclamada série de Inio Asano, explorando a vida e os dilemas de Punpun."
-                         data-avaliacao="4.9/5">
-                        <img src="~/img/livro4.png" class="card-img-top img-fluid" style="max-height:100px; object-fit:contain;" alt="Capa do Livro">
-                        <div class="card-body">
-                            <h4 class="card-title">Oyasumi Punpun 01</h4>
-                            <h5 class="lead">Inio Asano</h5>
-                            <p>Avaliações</p>
-                            <a href="#" class="card-link btn btn-outline-dark w-100">Reservar</a>
+                @foreach (var livro in livros.Skip(4).Take(5))
+                {
+                    <div class="col">
+                        <div class="card card-lg h-100 text-center livro-card"
+                             data-titulo="@livro.Titulo"
+                             data-descricao="@livro.Descricao"
+                             data-avaliacao="@(medias[livro.LivroId].qtd > 0 ? $"{medias[livro.LivroId].media:0.0}/5" : "Sem avaliação")">
+                            <img src="@(string.IsNullOrEmpty(livro.UrlCapa) ? Url.Content("~/img/sem-imagem.jpg") : Url.Action("BuscarCapa", "Livros", new { id = livro.LivroId }))"
+                                 class="card-img-top img-fluid"
+                                 alt="Capa do Livro" style="height: 140px; object-fit: cover;" />
+                            <div class="card-body">
+                                <h4 class="card-title">@livro.Titulo</h4>
+                                <h5 class="lead">@livro.Autor</h5>
+                                <p>
+                                    @if (medias[livro.LivroId].qtd > 0)
+                                    {
+                                        <span>⭐ @medias[livro.LivroId].media.ToString("0.0")</span>
+                                        <span> (@medias[livro.LivroId].qtd avaliações)</span>
+                                    }
+                                    else
+                                    {
+                                        <span>Sem avaliações</span>
+                                    }
+                                </p>
+                                <p class="text-center">
+                                    <a href="@Url.Action("Create", "Avaliacoes", new { livroId = livro.LivroId })"
+                                       class="card-link btn btn-outline-light">Avaliar</a>
+                                    <a asp-controller="Reservas" asp-action="Index" class="card-link btn btn-outline-dark">Reservar</a>
+                                </p>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col">
-                    <div class="card card-lg h-100 text-center livro-card"
-                         data-titulo="Oyasumi Punpun 02"
-                         data-descricao="Continuação da jornada de Punpun, com temas profundos e emocionantes."
-                         data-avaliacao="4.8/5">
-                        <img src="~/img/livro5.png" class="card-img-top img-fluid" style="max-height:100px; object-fit:contain;" alt="Capa do Livro">
-                        <div class="card-body">
-                            <h4 class="card-title">Oyasumi Punpun 02</h4>
-                            <h5 class="lead">Inio Asano</h5>
-                            <p>Avaliações</p>
-                            <a href="#" class="card-link btn btn-outline-dark w-100">Reservar</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card card-lg h-100 text-center livro-card"
-                         data-titulo="Oyasumi Punpun 03"
-                         data-descricao="Punpun enfrenta novos desafios e amadurece em meio a situações complexas."
-                         data-avaliacao="4.7/5">
-                        <img src="~/img/livro6.png" class="card-img-top img-fluid" style="max-height:100px; object-fit:contain;" alt="Capa do Livro">
-                        <div class="card-body">
-                            <h4 class="card-title">Oyasumi Punpun 03</h4>
-                            <h5 class="lead">Inio Asano</h5>
-                            <p>Avaliações</p>
-                            <a href="#" class="card-link btn btn-outline-dark w-100">Reservar</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card card-lg h-100 text-center livro-card"
-                         data-titulo="Oyasumi Punpun 04"
-                         data-descricao="A história de Punpun se aprofunda, trazendo reflexões sobre a vida e a solidão."
-                         data-avaliacao="4.8/5">
-                        <img src="~/img/livro7.png" class="card-img-top img-fluid" style="max-height:100px; object-fit:contain;" alt="Capa do Livro">
-                        <div class="card-body">
-                            <h4 class="card-title">Oyasumi Punpun 04</h4>
-                            <h5 class="lead">Inio Asano</h5>
-                            <p>Avaliações</p>
-                            <a href="#" class="card-link btn btn-outline-dark w-100">Reservar</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card card-lg h-100 text-center livro-card"
-                         data-titulo="Oyasumi Punpun 05"
-                         data-descricao="Conclusão emocionante da série, com reviravoltas e sentimentos intensos."
-                         data-avaliacao="5.0/5">
-                        <img src="~/img/livro8.png" class="card-img-top img-fluid" style="max-height:100px; object-fit:contain;" alt="Capa do Livro">
-                        <div class="card-body">
-                            <h4 class="card-title">Oyasumi Punpun 05</h4>
-                            <h5 class="lead">Inio Asano</h5>
-                            <p>Avaliações</p>
-                            <a href="#" class="card-link btn btn-outline-dark w-100">Reservar</a>
-                        </div>
-                    </div>
-                </div>
+                }
             </div>
         </div>
     </div>
@@ -165,112 +105,42 @@
     <div class="container">
         <h2 class="text-center text-black m-0 pt-4 pb-2">Livros com Melhores Avaliações</h2>
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
-            <div class="col">
-                <div class="card card-lg h-100 text-center livro-card"
-                     data-titulo="O Beco"
-                     data-descricao="Uma história de terror e suspense, típica do estilo Junji Ito."
-                     data-avaliacao="4.9/5">
-                    <img src="~/img/livro9.png" class="card-img-top img-fluid" style="max-height:140px; object-fit:contain;" alt="Capa do Livro">
-                    <div class="card-body">
-                        <h4 class="card-title">O Beco</h4>
-                        <h5 class="lead">Junji Ito</h5>
-                        <p>Avaliações</p>
-                        <a href="#" class="card-link btn btn-outline-dark w-100">Reservar</a>
+            @foreach (var livro in livros.Skip(9))
+            {
+                <div class="col">
+                    <div class="card card-lg h-100 text-center livro-card"
+                         data-titulo="@livro.Titulo"
+                         data-descricao="@livro.Descricao"
+                         data-avaliacao="@(medias[livro.LivroId].qtd > 0 ? $"{medias[livro.LivroId].media:0.0}/5" : "Sem avaliação")">
+                        <img src="@(string.IsNullOrEmpty(livro.UrlCapa) ? Url.Content("~/img/sem-imagem.jpg") : Url.Action("BuscarCapa", "Livros", new { id = livro.LivroId }))"
+                             class="card-img-top img-fluid"
+                             alt="Capa do Livro" style="height: 140px; object-fit: cover;" />
+                        <div class="card-body">
+                            <h4 class="card-title">@livro.Titulo</h4>
+                            <h5 class="lead">@livro.Autor</h5>
+                            <p>
+                                @if (medias[livro.LivroId].qtd > 0)
+                                {
+                                    <span>⭐ @medias[livro.LivroId].media.ToString("0.0")</span>
+                                    <span> (@medias[livro.LivroId].qtd avaliações)</span>
+                                }
+                                else
+                                {
+                                    <span>Sem avaliações</span>
+                                }
+                            </p>
+                            <p class="text-center">
+                                <a href="@Url.Action("Create", "Avaliacoes", new { livroId = livro.LivroId })"
+                                   class="card-link btn btn-outline-light">Avaliar</a>
+                                <a asp-controller="Reservas" asp-action="Index" class="card-link btn btn-outline-dark">Reservar</a>
+                            </p>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col">
-                <div class="card card-lg h-100 text-center livro-card"
-                     data-titulo="Gyo"
-                     data-descricao="Gyo traz o horror do fundo do mar para a superfície, em uma trama perturbadora."
-                     data-avaliacao="4.8/5">
-                    <img src="~/img/livro10.png" class="card-img-top img-fluid" style="max-height:140px; object-fit:contain;" alt="Capa do Livro">
-                    <div class="card-body">
-                        <h4 class="card-title">Gyo</h4>
-                        <h5 class="lead">Junji Ito</h5>
-                        <p>Avaliações</p>
-                        <a href="#" class="card-link btn btn-outline-dark w-100">Reservar</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card card-lg h-100 text-center livro-card"
-                     data-titulo="Uzumaki"
-                     data-descricao="Uzumaki é um clássico do horror japonês, com uma narrativa hipnotizante."
-                     data-avaliacao="5.0/5">
-                    <img src="~/img/livro11.png" class="card-img-top img-fluid" style="max-height:140px; object-fit:contain;" alt="Capa do Livro">
-                    <div class="card-body">
-                        <h4 class="card-title">Uzumaki</h4>
-                        <h5 class="lead">Junji Ito</h5>
-                        <p>Avaliações</p>
-                        <a href="#" class="card-link btn btn-outline-dark w-100">Reservar</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card card-lg h-100 text-center livro-card"
-                     data-titulo="Mortos de Amor"
-                     data-descricao="Uma coletânea de contos macabros e envolventes de Junji Ito."
-                     data-avaliacao="4.7/5">
-                    <img src="~/img/livro12.png" class="card-img-top img-fluid" style="max-height:140px; object-fit:contain;" alt="Capa do Livro">
-                    <div class="card-body">
-                        <h4 class="card-title">Mortos de Amor</h4>
-                        <h5 class="lead">Junji Ito</h5>
-                        <p>Avaliações</p>
-                        <a href="#" class="card-link btn btn-outline-dark w-100">Reservar</a>
-                    </div>
-                </div>
-            </div>
+            }
         </div>
     </div>
-
-
-
-
-    @* <div class="card text-center mt-2"> *@
-    @*     <div class="w-100 text-center mt-3"> *@
-    @*         <img src="~/img/livro10.png" class="card-img-top img-fluid" alt="Capa do Livro"> *@
-    @*     </div> *@
-    @*     <div class="card-body"> *@
-    @*         <h4 class="card-title">Gyo</h4> *@
-    @*         <h5 class="lead">Junji Ito</h5> *@
-    @*         <p>Avaliações</p> *@
-    @*         <p class="text-center"> *@
-    @*             <a href="#" class="card-link btn btn-outline-dark">Reservar</a> *@
-    @*         </p> *@
-
-    @*     </div> *@
-    @* </div> *@
-
-    @* <div class="card text-center mt-2"> *@
-    @*     <div class="w-100 text-center mt-3"> *@
-    @*         <img src="~/img/livro11.png" class="card-img-top img-fluid" alt="Capa do Livro"> *@
-    @*     </div> *@
-    @*     <div class="card-body"> *@
-    @*         <h4 class="card-title">Uzumaki</h4> *@
-    @*         <h5 class="lead">Junji Ito</h5> *@
-    @*         <p>Avaliações</p> *@
-    @*         <p class="text-center"> *@
-    @*             <a href="#" class="card-link btn btn-outline-dark">Reservar</a> *@
-    @*         </p> *@
-    @*     </div> *@
-    @* </div> *@
-
-    @* <div class="card text-center mt-2"> *@
-    @*     <div class="w-100 text-center mt-3"> *@
-    @*         <img src="~/img/livro12.png" class="card-img-top img-fluid" alt="Capa do Livro"> *@
-    @*     </div> *@
-    @*     <div class="card-body"> *@
-    @*         <h4 class="card-title">Mortos de Amor</h4> *@
-    @*         <h5 class="lead">Junji Ito</h5> *@
-    @*         <p>Avaliações</p> *@
-    @*         <p class="text-center"> *@
-    @*             <a href="#" class="card-link btn btn-outline-dark">Reservar</a> *@
-    @*         </p> *@
-    @*     </div> *@
-    @* </div> *@
 </div>
-
 
 <!-- Modal Livro -->
 <div class="modal fade" id="livroModal" tabindex="-1" aria-labelledby="livroModalLabel" aria-hidden="true">
