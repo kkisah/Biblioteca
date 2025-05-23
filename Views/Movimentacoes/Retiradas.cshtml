@@ -85,13 +85,13 @@
                                         <td>@item.Livro?.Titulo</td>
                                         <td>
                                             <a asp-controller="Movimentacoes" asp-action="Retirar" asp-route-id="@item.ReservaId"
-                                               class="btn text-light text-decoration-none">
+                                               class="btn btn-light text-light text-decoration-none">
                                                 Retirar
                                             </a>
                                         </td>
                                         <td>
                                             <a asp-controller="Reservas" asp-action="Cancelar" asp-route-id="@item.ReservaId"
-                                               class="btn text-light text-decoration-none">
+                                               class="btn btn-light text-light text-decoration-none">
                                                 Cancelar
                                             </a>
                                         </td>
