@@ -11,6 +11,37 @@ html {
     }
 }
 
+@media (max-width: 576px) {
+    .card-img-top {
+        height: 100px !important;
+    }
+
+    .card {
+        font-size: 0.95rem;
+    }
+}
+
+
+.parallax {
+    background-image: url('/img/sua-imagem.jpg');
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 300px;
+}
+
+@media (max-width: 768px) {
+    .parallax {
+        background-attachment: scroll; /* Corrige bug de parallax em mobile */
+        min-height: 200px;
+    }
+
+    .card-img-top {
+        height: 120px !important;
+    }
+}
+
 .card-lg {
     width: 100%;
     max-width: 400px; /* ou 400px, ajuste como preferir */
@@ -299,5 +330,3 @@ header {
         font-size: 16px;
         padding: 12px;
     }
-
-
