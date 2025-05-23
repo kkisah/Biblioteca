@@ -36,7 +36,7 @@
                      data-titulo="Sensor"
                      data-descricao="Sensor é uma obra de terror psicológico de Junji Ito, explorando mistérios sobrenaturais."
                      data-avaliacao="4.6/5">
-                    <img src="~/img/livro1.png" class="card-img-top img-fluid" style="max-height:140px; object-fit:contain;" alt="Capa do Livro">
+                    <img src="~/img/livro1.png" class="card-img-top img-fluid" style="max-height:180px; object-fit:contain;" alt="Capa do Livro">
                     <div class="card-body">
                         <h4 class="card-title">Sensor</h4>
                         <h5 class="lead">Junji Ito</h5>
@@ -50,7 +50,7 @@
                      data-titulo="Cidade das Lápides"
                      data-descricao="Uma cidade misteriosa onde lápides escondem segredos sombrios. Junji Ito no seu melhor."
                      data-avaliacao="4.7/5">
-                    <img src="~/img/livro2.png" class="card-img-top img-fluid" style="max-height:140px; object-fit:contain;" alt="Capa do Livro">
+                    <img src="~/img/livro2.png" class="card-img-top img-fluid" style="max-height:180px; object-fit:contain;" alt="Capa do Livro">
                     <div class="card-body">
                         <h4 class="card-title">Cidade das Lápides</h4>
                         <h5 class="lead">Junji Ito</h5>
@@ -64,12 +64,12 @@
                      data-titulo="Buracos da Estranheza"
                      data-descricao="Contos de horror e mistério que desafiam a lógica, por Junji Ito."
                      data-avaliacao="4.9/5">
-                    <img src="~/img/livro3.png" class="card-img-top mx-auto d-block mt-2 mb-2" style="max-height:140px; width:auto; object-fit:contain;" alt="Capa do Livro">
+                    <img src="~/img/livro3.png" class="card-img-top img-fluid" style="max-height:180px; width:auto; object-fit:contain;" alt="Capa do Livro">
                     <div class="card-body">
                         <h6 class="card-title mb-1" style="font-size:1.1rem;">Buracos da Estranheza</h6>
                         <h5 class="lead">Junji Ito</h5>
                         <p>Avaliações</p>
-                        <a href="#" class="card-link btn btn-outline-dark w-100">Reservar</a>
+                        <a asp-controller="Reservas" asp-action="Index" class="card-link btn btn-outline-dark w-100">Reservar</a>
                     </div>
                 </div>
             </div>
@@ -187,7 +187,7 @@
                             </p>
                             <p class="text-center">
                                 <a href="@Url.Action("Create", "Avaliacoes", new { livroId = livro.LivroId })"
-                                   class="card-link btn btn-outline-warning">Avaliar</a>
+                                   class="card-link btn btn-outline-light">Avaliar</a>
                                 <a href="#" class="card-link btn btn-outline-dark">Reservar</a>
                             </p>
                         </div>
