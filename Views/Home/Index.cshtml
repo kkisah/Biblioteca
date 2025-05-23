@@ -19,44 +19,70 @@
     <div class="container">
         <h2 class="text-center text-dark m-0 pb-3">Lançamentos</h2>
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
-            @foreach (var livro in livros.Take(4))
-            {
-                <div class="col">
-                    <div class="card card-lg h-100 text-center livro-card"
-                         data-titulo="@livro.Titulo"
-                         data-descricao="@livro.Descricao"
-                         data-avaliacao="@(medias[livro.LivroId].qtd > 0 ? $"{medias[livro.LivroId].media:0.0}/5" : "Sem avaliação")">
-                        <img src="@(string.IsNullOrEmpty(livro.UrlCapa) ? Url.Content("~/img/sem-imagem.jpg") : Url.Action("BuscarCapa", "Livros", new { id = livro.LivroId }))"
-                             class="card-img-top img-fluid"
-                             alt="Capa do Livro" style="height: 180px; object-fit: cover;" />
-                        <div class="card-body">
-                            <h4 class="card-title">@livro.Titulo</h4>
-                            <h5 class="lead">@livro.Autor</h5>
-                            <p>
-                                @if (medias[livro.LivroId].qtd > 0)
-                                {
-                                    <span>⭐ @medias[livro.LivroId].media.ToString("0.0")</span>
-                                    <span> (@medias[livro.LivroId].qtd avaliações)</span>
-                                }
-                                else
-                                {
-                                    <span>Sem avaliações</span>
-                                }
-                            </p>
-                            <p class="text-center">
-                                <a href="@Url.Action("Create", "Avaliacoes", new { livroId = livro.LivroId })"
-                                   class="card-link btn btn-outline-light">Avaliar</a>
-                                <a asp-controller="Reservas" asp-action="Index" class="card-link btn btn-outline-dark">Reservar</a>
-                            </p>
-                        </div>
+            <div class="col">
+                <div class="card card-lg h-100 text-center livro-card"
+                     data-titulo="Dismorfos"
+                     data-descricao="Um suspense psicológico de Junji Ito. Uma história envolvente sobre identidade e medo."
+                     data-avaliacao="4.8/5">
+                    <img src="~/img/livro.png" class="card-img-top img-fluid" style="max-height:180px; object-fit:contain;" alt="Capa do Livro">
+                    <div class="card-body">
+                        <h4 class="card-title">Dismorfos</h4>
+                        <h5 class="lead">Junji Ito</h5>
+                        <p>Avaliações</p>
+                        <a href="#" class="card-link btn btn-outline-dark w-100">Reservar</a>
                     </div>
                 </div>
-            }
+            </div>
+            <div class="col">
+                <div class="card card-lg h-100 text-center livro-card"
+                     data-titulo="Sensor"
+                     data-descricao="Sensor é uma obra de terror psicológico de Junji Ito, explorando mistérios sobrenaturais."
+                     data-avaliacao="4.6/5">
+                    <img src="~/img/livro1.png" class="card-img-top img-fluid" style="max-height:180px; object-fit:contain;" alt="Capa do Livro">
+                    <div class="card-body">
+                        <h4 class="card-title">Sensor</h4>
+                        <h5 class="lead">Junji Ito</h5>
+                        <p>Avaliações</p>
+                        <a href="#" class="card-link btn btn-outline-dark w-100">Reservar</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card card-lg h-100 text-center livro-card"
+                     data-titulo="Cidade das Lápides"
+                     data-descricao="Uma cidade misteriosa onde lápides escondem segredos sombrios. Junji Ito no seu melhor."
+                     data-avaliacao="4.7/5">
+                    <img src="~/img/livro2.png" class="card-img-top img-fluid" style="max-height:180px; object-fit:contain;" alt="Capa do Livro">
+                    <div class="card-body">
+                        <h4 class="card-title">Cidade das Lápides</h4>
+                        <h5 class="lead">Junji Ito</h5>
+                        <p>Avaliações</p>
+                        <a href="#" class="card-link btn btn-outline-dark w-100">Reservar</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card card-lg h-100 text-center livro-card"
+                     data-titulo="Buracos da Estranheza"
+                     data-descricao="Contos de horror e mistério que desafiam a lógica, por Junji Ito."
+                     data-avaliacao="4.9/5">
+                    <img src="~/img/livro3.png" class="card-img-top img-fluid" style="max-height:180px; width:auto; object-fit:contain;" alt="Capa do Livro">
+                    <div class="card-body">
+                        <h6 class="card-title mb-1" style="font-size:1.1rem;">Buracos da Estranheza</h6>
+                        <h5 class="lead">Junji Ito</h5>
+                        <p>Avaliações</p>
+                        <a asp-controller="Reservas" asp-action="Index" class="card-link btn btn-outline-dark w-100">Reservar</a>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
 
-<!-- Top 5 -->
+        </div>
+    </div>
+</div>
+
 <div class="bg-dark m-0 p-0">
     <h2 class="text-center text-light m-0 pt-4 pb-2">TOP 5 - Livros Mais Reservados</h2>
     <div id="divTop5" class="pb-4">
@@ -131,8 +157,13 @@
                             </p>
                             <p class="text-center">
                                 <a href="@Url.Action("Create", "Avaliacoes", new { livroId = livro.LivroId })"
-                                   class="card-link btn btn-outline-light">Avaliar</a>
-                                <a asp-controller="Reservas" asp-action="Index" class="card-link btn btn-outline-dark">Reservar</a>
+                                   class="card-link btn btn-outline-warning">Avaliar</a>
+                                <form asp-controller="Reserva" asp-action="Create" method="post" class="d-inline">
+                                    <input type="hidden" name="LivroId" value="@livro.LivroId" />
+                                    <button type="submit" class="btn btn-dark p-3 m-0">
+                                        Reservar
+                                    </button>
+                                </form>
                             </p>
                         </div>
                     </div>
@@ -140,6 +171,11 @@
             }
         </div>
     </div>
+
+
+
+
+
 </div>
 
 <!-- Modal Livro -->
@@ -162,5 +198,5 @@
 </div>
 
 <div id="divFooter" class="bg-dark text-center p-3">
-    <p class="lead text-light pt-3">Desenvolvido com 🤍 por Izzy, Vicente e Daniel</p>
+    <p class="lead text-light pt-3">Desenvolvido com 🤍 por Izzy</p>
 </div>
