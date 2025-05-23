@@ -188,7 +188,14 @@
                             <p class="text-center">
                                 <a href="@Url.Action("Create", "Avaliacoes", new { livroId = livro.LivroId })"
                                    class="card-link btn btn-outline-light">Avaliar</a>
-                                <a href="#" class="card-link btn btn-outline-dark">Reservar</a>
+                            </p>
+                            <p class="text-center">
+                                <form asp-controller="Reservas" asp-action="Create" method="post" class="d-inline">
+                                    <input type="hidden" name="LivroId" value="@livro.LivroId" />
+                                    <button type="submit" class="btn btn-dark p-3 m-0">
+                                        Reservar
+                                    </button>
+                                </form>
                             </p>
                         </div>
                     </div>

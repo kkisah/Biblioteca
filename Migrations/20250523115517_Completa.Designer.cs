@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Biblioteca.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250522165326_Reserva")]
-    partial class Reserva
+    [Migration("20250523115517_Completa")]
+    partial class Completa
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -265,13 +265,13 @@ namespace Biblioteca.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "eda89b64-af04-4bf3-80b1-a6c1415bcfd1",
+                            Id = "6b53d7e2-046b-4a52-be04-43de8fdf03b5",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "614c1e7e-7339-4070-bcbe-66492a0a7c1b",
+                            Id = "e26d8138-a522-49a7-baa7-8f843beedde0",
                             Name = "Aluno",
                             NormalizedName = "ALUNO"
                         });
@@ -369,17 +369,17 @@ namespace Biblioteca.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "668276a9-1c58-4405-a669-4bf83b77e64f",
+                            Id = "fdeaf91b-fafa-4311-815e-a49994bc49b1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "e74ed2e7-06b6-427b-a037-b8a51bf4a73a",
+                            ConcurrencyStamp = "8d214cf1-e84a-47be-8ce5-10cd81ab9a0f",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEE3/yeOZ2oGOOwEVEWNQJpTxKfSHVUGedLGxFMVNw05rlT2Q+0yVIsLyHOssVnuNkA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEBC66bSHuoJP0ToZPTdetO2mISCfdNyazqv9YpsMTBXT1itcuJ+FQvI+JOn9VQpRMg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "92d8b4da-1002-4682-810b-a4203ecbc5f3",
+                            SecurityStamp = "74779259-0809-43e8-bcfc-c13186a4535a",
                             TwoFactorEnabled = false,
                             UserName = "admin@admin.com"
                         });
@@ -449,8 +449,8 @@ namespace Biblioteca.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "668276a9-1c58-4405-a669-4bf83b77e64f",
-                            RoleId = "eda89b64-af04-4bf3-80b1-a6c1415bcfd1"
+                            UserId = "fdeaf91b-fafa-4311-815e-a49994bc49b1",
+                            RoleId = "6b53d7e2-046b-4a52-be04-43de8fdf03b5"
                         });
                 });
 
