@@ -1,50 +1,67 @@
 ﻿@model Biblioteca.Models.Avaliacao
 
 @{
-    ViewData["Title"] = "Editar Avaliação";
+    ViewData["Title"] = "✧˖° Editar Avaliação";
 }
 
-<div class="container mt-5">
-    <div class="card shadow-lg border-0">
-        <div class="card-header bg-dark text-light">
-            <h3 class="mb-0">Editar Avaliação</h3>
-        </div>
-        <div class="card-body bg-light">
-            <form asp-action="Edit">
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <input type="hidden" asp-for="AvaliacaoId" />
-                <div class="mb-3">
-                    <label asp-for="Nota" class="form-label"></label>
+<div id="divAvaliacao" class="container bg-light text-dark mt-5 p-5 fs-5">
+    <h4 class="text-center fs-3">Confirme os Dados da Avaliação</h4>
+    <hr />
+    <form asp-action="Edit" method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="AvaliacaoId" />
+        <div class="row gap-3 mb-3 mt-2">
+            <div class="col">
+                <div class="form-group">
+                    <label asp-for="Nota" class="control-label"></label>
                     <input asp-for="Nota" class="form-control" />
                     <span asp-validation-for="Nota" class="text-danger"></span>
                 </div>
-                <div class="mb-3">
-                    <label asp-for="Comentario" class="form-label"></label>
+            </div>
+        </div>
+        <div class="row gap-3 mb-3">
+            <div class="col">
+                <div class="form-group">
+                    <label asp-for="Comentario" class="control-label"></label>
                     <input asp-for="Comentario" class="form-control" />
                     <span asp-validation-for="Comentario" class="text-danger"></span>
                 </div>
-                <div class="mb-3">
-                    <label asp-for="DataAvaliacao" class="form-label"></label>
-                    <input asp-for="DataAvaliacao" class="form-control" />
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label asp-for="DataAvaliacao" class="control-label"></label>
+                    <input type="date" asp-for="DataAvaliacao" class="form-control" />
                     <span asp-validation-for="DataAvaliacao" class="text-danger"></span>
                 </div>
-                <div class="mb-3">
-                    <label asp-for="LivroId" class="form-label"></label>
+            </div>
+        </div>
+        <div class="row gap-3 mb-3">
+            <div class="col">
+                <div class="form-group">
+                    <label asp-for="LivroId" class="control-label"></label>
                     <select asp-for="LivroId" class="form-select" asp-items="ViewBag.LivroId"></select>
                     <span asp-validation-for="LivroId" class="text-danger"></span>
                 </div>
-                <div class="mb-3">
-                    <label asp-for="UsuarioId" class="form-label"></label>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label asp-for="UsuarioId" class="control-label"></label>
                     <select asp-for="UsuarioId" class="form-select" asp-items="ViewBag.UsuarioId"></select>
                     <span asp-validation-for="UsuarioId" class="text-danger"></span>
                 </div>
-                <div class="d-flex justify-content-between">
-                    <a asp-action="Index" class="btn btn-outline-secondary">Voltar</a>
-                    <input type="submit" value="Salvar" class="btn btn-warning" />
-                </div>
-            </form>
+            </div>
         </div>
-    </div>
+        <div class="row gap-3 mb-3">
+            <div class="col">
+                <div class="form-group d-flex justify-content-between pt-4">
+                    <a asp-action="Index" class="btn btn-outline-light fs-5"><i class="bi bi-arrow-clockwise"></i> Voltar</a>
+                    <button type="submit" class="btn btn-light fs-5">
+                        <i class="bi bi-floppy"></i> Salvar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
 </div>
 
 @section Scripts {

@@ -17,7 +17,7 @@
 <!-- Lançamentos -->
 <div id="divLancamentos" class="py-4 parallax">
     <div class="container">
-        <h2 class="text-center text-dark m-0 pb-3">Lançamentos</h2>
+        <h2 class="text-center text-dark m-0 pb-3" style="text-shadow: 2px 2px 6px rgba(255, 255, 255, 0.9); font-weight: bold;">Lançamentos</h2>
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
             <div class="col">
                 <div class="card card-lg h-100 text-center livro-card"
@@ -157,7 +157,7 @@
                             </p>
                             <p class="text-center">
                                 <a href="@Url.Action("Create", "Avaliacoes", new { livroId = livro.LivroId })"
-                                   class="card-link btn btn-outline-warning">Avaliar</a>
+                                   class="card-link btn btn-outline-light">Avaliar</a>
                                 <form asp-controller="Reserva" asp-action="Create" method="post" class="d-inline">
                                     <input type="hidden" name="LivroId" value="@livro.LivroId" />
                                     <button type="submit" class="btn btn-dark p-3 m-0">

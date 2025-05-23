@@ -1,54 +1,71 @@
 ﻿@model IEnumerable<Biblioteca.Models.Avaliacao>
 
 @{
-    ViewData["Title"] = "Avaliações";
+    ViewData["Title"] = "✧˖° Avaliações";
 }
 
-<div class="container mt-5">
-    <div class="card shadow-lg border-0">
-        <div class="card-header bg-dark text-light d-flex justify-content-between align-items-center">
-            <h3 class="mb-0">Avaliações</h3>
-            <a asp-action="Create" class="btn btn-warning">Nova Avaliação</a>
-        </div>
-        <div class="card-body bg-light p-0">
-            <table class="table table-hover mb-0">
-                <thead class="table-dark">
-                    <tr>
-                        <th>Nota</th>
-                        <th>Comentário</th>
-                        <th>Data</th>
-                        <th>Livro</th>
-                        <th>Usuário</th>
-                        <th>Ações</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @if (Model != null && Model.Any())
-                    {
-                        foreach (var item in Model)
-                        {
-                            <tr>
-                                <td>@item.Nota</td>
-                                <td>@item.Comentario</td>
-                                <td>@item.DataAvaliacao.ToString("dd/MM/yyyy")</td>
-                                <td>@(item.Livro != null ? item.Livro.Titulo : "N/A")</td>
-                                <td>@(item.Usuario != null ? item.Usuario.NomeCompleto : "N/A")</td>
-                                <td>
-                                    <a asp-action="Edit" asp-route-id="@item.AvaliacaoId" class="btn btn-sm btn-outline-primary">Editar</a>
-                                    <a asp-action="Details" asp-route-id="@item.AvaliacaoId" class="btn btn-sm btn-outline-info">Detalhes</a>
-                                    <a asp-action="Delete" asp-route-id="@item.AvaliacaoId" class="btn btn-sm btn-outline-danger">Excluir</a>
-                                </td>
-                            </tr>
-                        }
-                    }
-                    else
-                    {
-                        <tr>
-                            <td colspan="6" class="text-center text-secondary">Nenhuma avaliação encontrada.</td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
+<div id="listaAvaliacoes" class="container bg-transparent text-dark p-5">
+
+    <h1 class="text-center text-dark mb-3">Avaliações ༘ ⋆｡˚</h1>
+
+    <br />
+    <hr />
+    <br />
+
+    <div class="row justify-content-center gap-3 mb-5">
+        <div class="col-3">
+            <a asp-action="Create" class="btn btn-outline-light w-100">
+                Adicionar <i class="bi bi-plus-circle"></i>
+            </a>
         </div>
     </div>
+
+    <table class="table table-dark table-striped">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.Nota)</th>
+                <th>@Html.DisplayNameFor(model => model.Comentario)</th>
+                <th>@Html.DisplayNameFor(model => model.DataAvaliacao)</th>
+                <th>@Html.DisplayNameFor(model => model.Livro)</th>
+                <th>@Html.DisplayNameFor(model => model.Usuario)</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Any())
+            {
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Nota</td>
+                        <td>@item.Comentario</td>
+                        <td>@item.DataAvaliacao.ToString("dd/MM/yyyy")</td>
+                        <td>
+                            @(item.Livro != null ? item.Livro.Titulo : "N/A")
+                        </td>
+                        <td>
+                            @(item.Usuario != null ? item.Usuario.NomeCompleto : "N/A")
+                        </td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.AvaliacaoId" class="btn btn-sm bg-transparent me-1">
+                                <i class="bi bi-pencil-square"></i>
+                            </a>
+                            <a asp-action="Details" asp-route-id="@item.AvaliacaoId" class="btn btn-sm bg-transparent me-1">
+                                <i class="bi bi-info-circle"></i>
+                            </a>
+                            <a asp-action="Delete" asp-route-id="@item.AvaliacaoId" class="btn btn-sm bg-transparent">
+                                <i class="bi bi-trash3"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="6" class="text-center text-secondary">Nenhuma avaliação encontrada.</td>
+                </tr>
+            }
+        </tbody>
+    </table>
 </div>
