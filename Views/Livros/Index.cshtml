@@ -90,7 +90,13 @@
                     <td>
                         <a asp-action="Edit" asp-route-id="@item.LivroId"><i class="bi bi-pencil-square"></i></a>
                         <a asp-action="Delete" asp-route-id="@item.LivroId"><i class="bi bi-trash3"></i></a>
-                        <a asp-action="Reservas" asp-route-id="@item.LivroId" class="text-light text-decoration-none btn">Reservar</a>
+                        <form asp-controller="Reservas" asp-action="Create" method="post" class="d-inline">
+                            <input type="hidden" name="LivroId" value="@item.LivroId" />
+                            <button type="submit" class="btn btn-link text-light text-decoration-none p-0 m-0 align-baseline">
+                                <i class="bi bi-check-square"></i> Reservar
+                            </button>
+                        </form>
+
                     </td>
                 </tr>
             }

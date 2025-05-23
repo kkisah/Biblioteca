@@ -14,7 +14,6 @@
     </div>
 </div>
 
-
 <div id="divLancamentos">
     <div class="parallax pt-4 d-flex justify-content-evenly flex-wrap">
         @foreach (var livro in Model)
@@ -81,7 +80,6 @@
     </div>
 </div>
 
-
 <div id="divAvalicao">
     <div class="parallax pt-4">
         <h2 class="text-center text-light m-0 bg-dark pt-4 shadow-custom">Livros com Melhores Avaliações</h2>
@@ -112,10 +110,8 @@
                             </p>
                             <p class="text-center">
                                 <a href="@Url.Action("Create", "Avaliacoes", new { livroId = livro.LivroId })"
-                                   class="card-link btn btn-outline-light">Avaliar</a>
-                            </p>
-                            <p class="text-center">
-                                <form asp-controller="Reservas" asp-action="Create" method="post" class="d-inline">
+                                   class="card-link btn btn-outline-warning">Avaliar</a>
+                                <form asp-controller="Reserva" asp-action="Create" method="post" class="d-inline">
                                     <input type="hidden" name="LivroId" value="@livro.LivroId" />
                                     <button type="submit" class="btn btn-dark p-3 m-0">
                                         Reservar
@@ -136,48 +132,7 @@
 
 
 
-    @* <div class="card text-center mt-2"> *@
-    @*     <div class="w-100 text-center mt-3"> *@
-    @*         <img src="~/img/livro10.png" class="card-img-top img-fluid" alt="Capa do Livro"> *@
-    @*     </div> *@
-    @*     <div class="card-body"> *@
-    @*         <h4 class="card-title">Gyo</h4> *@
-    @*         <h5 class="lead">Junji Ito</h5> *@
-    @*         <p>Avaliações</p> *@
-    @*         <p class="text-center"> *@
-    @*             <a href="#" class="card-link btn btn-outline-dark">Reservar</a> *@
-    @*         </p> *@
 
-    @*     </div> *@
-    @* </div> *@
-
-    @* <div class="card text-center mt-2"> *@
-    @*     <div class="w-100 text-center mt-3"> *@
-    @*         <img src="~/img/livro11.png" class="card-img-top img-fluid" alt="Capa do Livro"> *@
-    @*     </div> *@
-    @*     <div class="card-body"> *@
-    @*         <h4 class="card-title">Uzumaki</h4> *@
-    @*         <h5 class="lead">Junji Ito</h5> *@
-    @*         <p>Avaliações</p> *@
-    @*         <p class="text-center"> *@
-    @*             <a href="#" class="card-link btn btn-outline-dark">Reservar</a> *@
-    @*         </p> *@
-    @*     </div> *@
-    @* </div> *@
-
-    @* <div class="card text-center mt-2"> *@
-    @*     <div class="w-100 text-center mt-3"> *@
-    @*         <img src="~/img/livro12.png" class="card-img-top img-fluid" alt="Capa do Livro"> *@
-    @*     </div> *@
-    @*     <div class="card-body"> *@
-    @*         <h4 class="card-title">Mortos de Amor</h4> *@
-    @*         <h5 class="lead">Junji Ito</h5> *@
-    @*         <p>Avaliações</p> *@
-    @*         <p class="text-center"> *@
-    @*             <a href="#" class="card-link btn btn-outline-dark">Reservar</a> *@
-    @*         </p> *@
-    @*     </div> *@
-    @* </div> *@
 </div>
 
 
@@ -201,5 +156,5 @@
 </div>
 
 <div id="divFooter" class="bg-dark text-center p-3">
-    <p class="lead text-light pt-3">Desenvolvido com 🤍 por Izzy, Vicente e Daniel</p>
+    <p class="lead text-light pt-3">Desenvolvido com 🤍 por Izzy</p>
 </div>

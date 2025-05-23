@@ -39,14 +39,13 @@ namespace Biblioteca.Controllers
 
             var usuarioId = usuario.UsuarioId;
 
-            var livrosRetirados = await _context.Movimentacoes
-                .Where(m => m.UsuarioId == usuarioId)
-                .Select(m => m.LivroId)
-                .Distinct()
-                .ToListAsync();
+            //var livrosRetirados = await _context.Movimentacoes
+            //    .Where(m => m.UsuarioId == usuarioId)
+            //    .Select(m => m.LivroId)
+            //    .Distinct()
+            //    .ToListAsync();
 
             var avaliacoes = await _context.Avaliacoes
-                .Where(a => livrosRetirados.Contains(a.LivroId))
                 .Include(a => a.Livro)
                 .Include(a => a.Usuario)
                 .ToListAsync();
@@ -76,12 +75,13 @@ namespace Biblioteca.Controllers
         }
 
         // GET: Avaliacoes/Create
-        public IActionResult Create()
+        public IActionResult Create(int? livroId)
         {
-            ViewData["LivroId"] = new SelectList(_context.Livros, "LivroId", "LivroId");
-            ViewData["UsuarioId"] = new SelectList(_context.Usuarios, "UsuarioId", "UsuarioId");
+            ViewData["LivroId"] = new SelectList(_context.Livros, "LivroId", "Titulo", livroId);
+            ViewData["UsuarioId"] = new SelectList(_context.Usuarios, "UsuarioId", "NomeCompleto");
             return View();
         }
+
 
         // POST: Avaliacoes/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
@@ -94,8 +94,8 @@ namespace Biblioteca.Controllers
             {
                 _context.Add(avaliacao);
                 await _context.SaveChangesAsync();
-                // Redireciona para a Home, que já recarrega as médias e quantidades
-                return RedirectToAction("Index", "Home");
+                // Redireciona para a lista de avaliações, não para a Home!
+                return RedirectToAction(nameof(Index));
             }
             ViewData["LivroId"] = new SelectList(_context.Livros, "LivroId", "LivroId", avaliacao.LivroId);
             ViewData["UsuarioId"] = new SelectList(_context.Usuarios, "UsuarioId", "UsuarioId", avaliacao.UsuarioId);
