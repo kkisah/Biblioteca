@@ -1,8 +1,8 @@
 ﻿@model IEnumerable<Biblioteca.Models.Livro>
 @{
     var medias = (Dictionary<int, (double media, int qtd)>)ViewBag.MediasAvaliacoes;
-    var livros = Model?.ToList() ?? new List<Biblioteca.Models.Livro>();
 }
+
 
 <div id="divPesquisa" class="bg-dark pt-4 pb-4 text-light">
     <div class="container">
@@ -110,7 +110,7 @@
                             </p>
                             <p class="text-center">
                                 <a href="@Url.Action("Create", "Avaliacoes", new { livroId = livro.LivroId })"
-                                   class="card-link btn btn-outline-light">Avaliar</a>
+                                   class="card-link btn btn-outline-warning">Avaliar</a>
                                 <form asp-controller="Reserva" asp-action="Create" method="post" class="d-inline">
                                     <input type="hidden" name="LivroId" value="@livro.LivroId" />
                                     <button type="submit" class="btn btn-dark p-3 m-0">
@@ -120,7 +120,11 @@
                             </p>
                         </div>
                     </div>
-                </div>
+                }
+            }
+            else
+            {
+                <p class="text-center text-light">Nenhum livro encontrado.</p>
             }
         </div>
     </div>
@@ -130,6 +134,7 @@
 
 
 </div>
+
 
 <!-- Modal Livro -->
 <div class="modal fade" id="livroModal" tabindex="-1" aria-labelledby="livroModalLabel" aria-hidden="true">
